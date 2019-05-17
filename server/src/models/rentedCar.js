@@ -1,12 +1,13 @@
-import mongoose, { Schema } from 'mongoose';
-import timestamps from 'mongoose-timestamp';
-import mongooseStringQuery from 'mongoose-string-query';
-import autopopulate from 'mongoose-autopopulate';
+const mongoose = require('mongoose');
+const timestamps = require('mongoose-timestamp');
+const mongooseStringQuery = require('mongoose-string-query');
+const autopopulate = require('mongoose-autopopulate');
+const Types = mongoose.Schema.Types;
 
-export const RentedCarSchema = new Schema(
+const RentedCarSchema = new mongoose.Schema(
 	{
 		user: {
-			type: Schema.Types.ObjectId,
+			type: Types.ObjectId,
 			ref: 'User',
 			required: true,
 			index: true,
@@ -16,7 +17,7 @@ export const RentedCarSchema = new Schema(
 		},
 		car: [
 			{
-				type: Schema.Types.ObjectId,
+				type: Types.ObjectId,
 				ref: 'Car',
 				required: true,
 				autopopulate: true,

@@ -31,8 +31,20 @@ let _default = {
 		host : process.env.SERVER_HOST,
 		port: process.env.SERVER_PORT
 	},
+	redis: {
+		db: 0,
+		host : "127.0.0.1",
+		port : 6379
+	},
+	session : {
+		secret: 'fhsyepawgcodzwbmdcwlqbldgdtivcbyqhyo',
+		key: 'user_sid',
+	},
+	jwt : {
+		secret : 'jwtsecret'
+	},
 	database: {
-		uri: process.env.DATABASE_URI
+		uri: 'mongodb://localhost:27017/rentacar'
 	}
 };
 

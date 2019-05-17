@@ -1,13 +1,14 @@
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'mongoose-bcrypt';
-import timestamps from 'mongoose-timestamp';
-import mongooseStringQuery from 'mongoose-string-query';
+const mongoose = require('mongoose');
+const bcrypt = require('mongoose-bcrypt');
+const timestamps = require('mongoose-timestamp');
+const mongooseStringQuery = require('mongoose-string-query');
+const passportLocalMongoose = require('passport-local-mongoose');
 
-import RentedCarSchema from './rentedCar';
-import jwt from 'jsonwebtoken';
-import config from '../config';
+const RentedCarSchema = require('./rentedCar');
+const jwt = require('jsonwebtoken');
+const Config = require('../config');
 
-export const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
 	{
 		email: {
 			type: String,
@@ -74,9 +75,11 @@ UserSchema.methods.serializeAuthenticatedUser = function serializeAuthenticatedU
 		email: user.email,
 		name: user.name,
 		username: user.username,
-		jwt: jwt.sign({ email: user.email, sub: user._id }, config.jwt.secret),
+		jwt: jwt.sign({ email: user.email, sub: user._id }, Config.jwt.secret),
 	};
 	return serialized;
 };
+
+UserSchema.plugin(passportLocalMongoose);
 
 module.exports = exports = mongoose.model('User', UserSchema);
