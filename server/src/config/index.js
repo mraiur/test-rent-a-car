@@ -37,15 +37,20 @@ let _default = {
 		port : 6379
 	},
 	session : {
-		secret: 'fhsyepawgcodzwbmdcwlqbldgdtivcbyqhyo',
+		secret: process.env.SESSION_SECRET,
 		key: 'user_sid',
 	},
 	jwt : {
 		secret : 'jwtsecret'
 	},
+	Veriff : {
+		key: process.env.VERIFF_KEY,
+		secret: process.env.VERIFF_SECRET
+	},
 	database: {
-		uri: 'mongodb://localhost:27017/rentacar'
+		uri: process.env.DATABASE_URI
 	}
 };
 
+console.log("VERIFF_KEY", process.env.VERIFF_KEY);
 module.exports = Object.assign({ env: currentEnvironment }, _default, config);

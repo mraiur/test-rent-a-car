@@ -1,3 +1,5 @@
+const Config = require('./../config');
+
 exports.getLogin = async (req, res) => {
 	res.render('auth', { title: 'Login', app_file: 'login'});
 };
@@ -24,7 +26,13 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getRegister = async (req, res) => {
-	res.render('auth', { title: 'register', app_file: 'register' });
+	console.log('asdasdasd', Config);
+
+	res.render('auth', {
+		title: 'register',
+		app_file: 'register',
+		VERIFF: Config.Veriff
+	});
 };
 
 exports.postRegister = async (req, res) => {

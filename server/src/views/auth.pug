@@ -2,6 +2,8 @@ doctype html
 html
     head
         title= title
+        script(type='text/javascript').
+            var VERIFF_KEY='!{VERIFF?VERIFF.key:''}'
     body
         div(id="app",class="container-fluid d-flex h-100 flex-column")
             script(src=`/${app_file}.js`)

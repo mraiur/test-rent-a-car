@@ -1,3 +1,13 @@
 @import "~bootstrap/dist/css/bootstrap";
 
 @import "auth/form";
+
+.veriff-container
+{
+	width: 300px;
+	margin: 0 auto;
+
+	.veriff-submit{
+		margin: 10px 0 40px 0;
+	}
+}

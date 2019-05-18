@@ -1,5 +1,7 @@
 import jquery from 'jquery';
 import Bootstrap from 'bootstrap';
+import Veriff from '@veriff/js-sdk';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -12,6 +14,7 @@ class App extends React.Component{
 	{
 		super(props);
 		this.state = {
+			step: 1,
 			login: '',
 			password: '',
 			repeat_password: '',
@@ -19,7 +22,18 @@ class App extends React.Component{
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount()
+	{
+		const veriff = Veriff({
+			env: "production",
+			apiKey: VERIFF_KEY,
+			parentId: "veriff-root",
+			onSession: function(err, response) {
+				// Access verification ID through "response.verification.id"
+				location.replace(response.verification.url);
+			}
+		});
+		veriff.mount();
 	}
 
 	onSubmit(e){
@@ -92,33 +106,10 @@ class App extends React.Component{
 						</div>
 
 						<div className="fadeIn first">
-							<img src="/img/user_icon.svg" id="icon" alt="User Icon"/>
+							<div id="veriff-root" />
 						</div>
 
-						<form onSubmit={this.onSubmit.bind(this)}>
-							<input type="text"
-								   className="fadeIn second"
-								   name="login"
-								   value={this.state.login}
-								   onChange={this.fieldChange.bind(this)}
-								   placeholder="login" />
-							<input type="text"
-								   className="fadeIn third"
-								   name="password"
-								   value={this.state.password}
-								   onChange={this.fieldChange.bind(this)}
-								   placeholder="password"/>
-							<input type="text"
-								   className="fadeIn fourth"
-								   name="repeat_password"
-								   value={this.state.repeat_password}
-								   onChange={this.fieldChange.bind(this)}
-								   placeholder="repeat password"/>
-
-							{messages}
-							<input type="submit" className="fadeIn fourth" value="Register" />
-						</form>
-
+						{messages}
 						<div id="formFooter">
 							<a className="underlineHover" href="/auth/login">Login</a>
 						</div>
